@@ -14,15 +14,22 @@ export default function CarDetailScreen() {
   const selectedCar = selectedBrand?.cars.find(
     (c) => c.name.toLowerCase() === (car as string).toLowerCase(),
   );
-  const images = selectedCar?.images360 || [];
-  console.log("Selected Car:", selectedCar?.images360); // Debugging log
+
+  if (!selectedCar || !selectedBrand) {
+    return (
+      <View>
+        <Text>Car not found</Text>
+        <BackButton />
+      </View>
+    );
+  }
+
   return (
     <View>
       <Text>Brand: {brand}</Text>
       <Text>Model: {car}</Text>
 
-      {/* now this works */}
-      <Car360 images={images} />
+      <Car360 config={selectedCar.images360} />
 
       <BackButton />
     </View>
