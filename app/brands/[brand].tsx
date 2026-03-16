@@ -1,5 +1,5 @@
 // /app/brands/[brand].tsx
-import BackButton from "@/components/ui/BackButton";
+import BackButton from "@/components/navigation/BackButton";
 import Card from "@/components/ui/Card";
 import { carData } from "@/data/dummyData";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -28,7 +28,7 @@ export default function BrandScreen() {
           type="car"
           name={car.name}
           price={car.price}
-          onPress={() => router.push(`/brands/${brand}/${car.name}`)} // Navigate to car details
+          onPress={() => router.push(`/brands/${brand}/${car.id}`)} // Navigate to car details
         />
       ))}
 

@@ -20,7 +20,7 @@ export default function HomeScreen() {
             key={brand.brand}
             type="brand"
             name={brand.brand}
-            onPress={() => router.push(`/brands/${brand.brand}`)} // Navigate to brands
+            onPress={() => router.push(`/brands/${brand.id}`)} // Navigate to brands
           />
         ))}
       </View>

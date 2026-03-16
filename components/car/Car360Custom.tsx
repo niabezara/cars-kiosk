@@ -1,5 +1,11 @@
 // import React, { useRef, useState } from "react";
-// import { Dimensions, Image, PanResponder, StyleSheet, View } from "react-native";
+// import {
+//   Dimensions,
+//   Image,
+//   PanResponder,
+//   StyleSheet,
+//   View,
+// } from "react-native";
 
 // const { width } = Dimensions.get("window");
 // const HEIGHT = 300;
@@ -35,18 +41,12 @@
 //   if (images.length === 0) return null;
 
 //   return (
-//     <View
-//       {...panResponder.panHandlers}
-//       style={{ width, height: HEIGHT }}
-//     >
+//     <View {...panResponder.panHandlers} style={{ width, height: HEIGHT }}>
 //       {images.map((img, i) => (
 //         <Image
 //           key={i}
 //           source={img}
-//           style={[
-//             styles.image,
-//             { opacity: i === currentIndex ? 1 : 0 },
-//           ]}
+//           style={[styles.image, { opacity: i === currentIndex ? 1 : 0 }]}
 //           resizeMode="contain"
 //         />
 //       ))}

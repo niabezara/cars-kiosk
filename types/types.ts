@@ -1,11 +1,11 @@
-// /data/types.ts
-
+// types/types.ts
 export type Images360Config = {
   prefix: string;
   count: number;
-};
+} | null;
 
 export type Car = {
+  id: string;
   name: string;
   price: number;
   image: string;
@@ -13,6 +13,7 @@ export type Car = {
 };
 
 export type Brand = {
+  id: string;
   brand: string;
   logo: string;
   cars: Car[];

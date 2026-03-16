@@ -1,10 +1,48 @@
-import { imageMap } from "@/data/dummyData";
+// data/imageMap.ts
+import { Images360Config } from "@/types/types";
 
-export function get360Images(prefix: string, count: number): number[] {
-  return Array.from({ length: count }, (_, i) => {
-    const key = `${prefix}${i + 1}`;
-    const src = imageMap[key];
-    if (!src) throw new Error(`[imageMap] missing key: "${key}"`);
-    return src;
-  });
+export const imageMap: Record<string, number> = {
+  "corolla-1": require("../assets/car/36-(1).jpg"),
+  "corolla-2": require("../assets/car/36-(2).jpg"),
+  "corolla-3": require("../assets/car/36-(3).jpg"),
+  "corolla-4": require("../assets/car/36-(4).jpg"),
+  "corolla-5": require("../assets/car/36-(5).jpg"),
+  "corolla-6": require("../assets/car/36-(6).jpg"),
+  "corolla-7": require("../assets/car/36-(7).jpg"),
+  "corolla-8": require("../assets/car/36-(8).jpg"),
+  "corolla-9": require("../assets/car/36-(9).jpg"),
+  "corolla-10": require("../assets/car/36-(10).jpg"),
+  "corolla-11": require("../assets/car/36-(11).jpg"),
+  "corolla-12": require("../assets/car/36-(12).jpg"),
+  "corolla-13": require("../assets/car/36-(13).jpg"),
+  "corolla-14": require("../assets/car/36-(14).jpg"),
+  "corolla-15": require("../assets/car/36-(15).jpg"),
+  "corolla-16": require("../assets/car/36-(16).jpg"),
+  "corolla-17": require("../assets/car/36-(17).jpg"),
+  "corolla-18": require("../assets/car/36-(18).jpg"),
+  "corolla-19": require("../assets/car/36-(19).jpg"),
+  "corolla-20": require("../assets/car/36-(20).jpg"),
+  "corolla-21": require("../assets/car/36-(21).jpg"),
+  "corolla-22": require("../assets/car/36-(22).jpg"),
+  "corolla-23": require("../assets/car/36-(23).jpg"),
+  "corolla-24": require("../assets/car/36-(24).jpg"),
+  "corolla-25": require("../assets/car/36-(25).jpg"),
+  "corolla-26": require("../assets/car/36-(26).jpg"),
+  "corolla-27": require("../assets/car/36-(27).jpg"),
+  "corolla-28": require("../assets/car/36-(28).jpg"),
+  "corolla-29": require("../assets/car/36-(29).jpg"),
+  "corolla-30": require("../assets/car/36-(30).jpg"),
+  "corolla-31": require("../assets/car/36-(31).jpg"),
+  "corolla-32": require("../assets/car/36-(32).jpg"),
+  "corolla-33": require("../assets/car/36-(33).jpg"),
+  "corolla-34": require("../assets/car/36-(34).jpg"),
+  "corolla-35": require("../assets/car/36-(35).jpg"),
+};
+
+export function resolve360Images(config: Images360Config): number[] {
+  if (!config) return [];
+  return Array.from(
+    { length: config.count },
+    (_, i) => imageMap[`${config.prefix}${i + 1}`],
+  ).filter(Boolean);
 }
