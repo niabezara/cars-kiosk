@@ -1,9 +1,8 @@
-// /components/icons/Icons.tsx
 import React from "react";
-import Svg, { Path } from "react-native-svg";
+import Svg, { Path, SvgProps } from "react-native-svg";
 
 export const Icons = {
-  arrowLeft: (props?: any) => (
+  arrow: (props?: SvgProps) => (
     <Svg width={53} height={105} viewBox="0 0 53 105" {...props}>
       <Path
         d="M51.7171 0V1.6063M51.7171 1.6063V102L1.41571 51.8031L51.7171 1.6063Z"

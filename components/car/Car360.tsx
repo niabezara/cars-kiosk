@@ -1,12 +1,13 @@
 import { use360Viewer } from "@/hooks/use360Viewer";
 import React from "react";
-import { Dimensions, Image, StyleSheet, View } from "react-native";
+import { Dimensions, Image, Pressable, StyleSheet, View } from "react-native";
+import { Icons } from "../shared/icons";
 
 const { width } = Dimensions.get("window");
 const HEIGHT = 300;
 
 export default function Car360Viewer({ images }: { images: number[] }) {
-  const { currentIndex, panHandlers } = use360Viewer(images.length);
+  const { currentIndex, next, prev, panHandlers } = use360Viewer(images.length);
 
   if (!images?.length) return null;
 
@@ -20,6 +21,13 @@ export default function Car360Viewer({ images }: { images: number[] }) {
           resizeMode="contain"
         />
       ))}
+      <Pressable onPress={prev}>
+        <Icons.arrow style={{ transform: [{ rotate: "180deg" }] }} />
+      </Pressable>
+
+      <Pressable onPress={next}>
+        <Icons.arrow />
+      </Pressable>
     </View>
   );
 }

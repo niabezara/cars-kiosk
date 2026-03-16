@@ -10,6 +10,17 @@ export function use360Viewer(imagesLength: number) {
   const startXRef = useRef(0);
   const startIndexRef = useRef(0);
 
+  const updateIndex = (idx: number) => {
+    let next = idx % imagesLength;
+    if (next < 0) next += imagesLength;
+
+    indexRef.current = next;
+    setCurrentIndex(next);
+  };
+
+  const next = () => updateIndex(indexRef.current + 1);
+  const prev = () => updateIndex(indexRef.current - 1);
+
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
@@ -22,23 +33,19 @@ export function use360Viewer(imagesLength: number) {
       onPanResponderMove: (_, gesture) => {
         const sensitivity = width / imagesLength;
 
-        let nextIndex =
-          (startIndexRef.current +
-            Math.round((startXRef.current - gesture.moveX) / sensitivity)) %
-          imagesLength;
+        let idx =
+          startIndexRef.current +
+          Math.round((startXRef.current - gesture.moveX) / sensitivity);
 
-        if (nextIndex < 0) nextIndex += imagesLength;
-
-        if (nextIndex !== indexRef.current) {
-          indexRef.current = nextIndex;
-          setCurrentIndex(nextIndex);
-        }
+        updateIndex(idx);
       },
     }),
   ).current;
 
   return {
     currentIndex,
+    next,
+    prev,
     panHandlers: panResponder.panHandlers,
   };
 }
