@@ -21,6 +21,7 @@ export default function Car360Viewer({ images }: { images: number[] }) {
           resizeMode="contain"
         />
       ))}
+
       <Pressable onPress={prev}>
         <Icons.arrow style={{ transform: [{ rotate: "180deg" }] }} />
       </Pressable>

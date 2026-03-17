@@ -27,7 +27,7 @@ export default function BrandScreen() {
           key={car.name}
           type="car"
           name={car.name}
-          price={car.price}
+          price={car.grades[0].fullPrice}
           onPress={() => router.push(`/brands/${brand}/${car.id}`)} // Navigate to car details
         />
       ))}

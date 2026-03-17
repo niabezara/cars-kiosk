@@ -1,10 +1,14 @@
 import Car360Viewer from "@/components/car/Car360";
+import Configuration from "@/components/car/Configuration";
+import Price from "@/components/car/Price";
 import BackButton from "@/components/navigation/BackButton";
-
+import Grid from "@/components/ui/Grid";
 import { carData } from "@/data/dummyData";
+import { configStore } from "@/stores/configStore";
 import { resolve360Images } from "@/utils/imageMap";
-import { useLocalSearchParams } from "expo-router";
-import { Image, Text, View } from "react-native";
+import { router, useLocalSearchParams } from "expo-router";
+import { Button, Image, ScrollView, Text, View } from "react-native";
+import { useStore } from "zustand/react";
 
 export default function CarDetailScreen() {
   const { brand, car } = useLocalSearchParams();
@@ -12,7 +16,7 @@ export default function CarDetailScreen() {
   const selectedBrand = carData.find((b) => b.id === (brand as string));
 
   const selectedCar = selectedBrand?.cars.find((c) => c.id === (car as string));
-
+  const selectedGrade = useStore(configStore, (state) => state.selectedGrade);
   if (!selectedCar || !selectedBrand) {
     return (
       <View>
@@ -23,7 +27,7 @@ export default function CarDetailScreen() {
   }
 
   return (
-    <View>
+    <ScrollView>
       <Text>{selectedCar.name}</Text>
 
       {selectedCar.images360 ? (
@@ -34,8 +38,19 @@ export default function CarDetailScreen() {
           <Text>360° view coming soon</Text>
         </View>
       )}
-
+      <Grid>
+        <Configuration details={selectedCar.engines} />
+        <Price data={selectedCar.grades} />
+      </Grid>
+      <Button
+        title="Continue"
+        disabled={!selectedGrade} // visually disabled when nothing selected
+        onPress={() => {
+          if (!selectedGrade) return;
+          router.push(`/brands/${brand}/summary`);
+        }}
+      />
       <BackButton />
-    </View>
+    </ScrollView>
   );
 }

@@ -1,6 +1,3 @@
-// data/imageMap.ts
-import { Images360Config } from "@/types/types";
-
 export const imageMap: Record<string, number> = {
   "corolla-1": require("../assets/car/36-(1).jpg"),
   "corolla-2": require("../assets/car/36-(2).jpg"),
@@ -39,7 +36,7 @@ export const imageMap: Record<string, number> = {
   "corolla-35": require("../assets/car/36-(35).jpg"),
 };
 
-export function resolve360Images(config: Images360Config): number[] {
+export function resolve360Images(config: any): number[] {
   if (!config) return [];
   return Array.from(
     { length: config.count },
