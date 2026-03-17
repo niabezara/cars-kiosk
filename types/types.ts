@@ -28,7 +28,7 @@ export interface CarDetails {
 export interface Car {
   id: string;
   name: string;
-  image: string;
+  image: any;
   images360: { prefix: string; count: number } | null;
   details: CarDetails;
   engines: EngineConfig[]; // multiple engine options

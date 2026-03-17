@@ -47,7 +47,7 @@ export default function CarDetailScreen() {
         disabled={!selectedGrade} // visually disabled when nothing selected
         onPress={() => {
           if (!selectedGrade) return;
-          router.push(`/brands/${brand}/summary`);
+          router.push(`/brands/${brand}/${car}/summary`);
         }}
       />
       <BackButton />

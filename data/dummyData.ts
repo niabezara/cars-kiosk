@@ -9,8 +9,7 @@ export const carData: Brand[] = [
       {
         id: "toyota-land-cruiser",
         name: "Land Cruiser",
-        image:
-          "https://cdn.pixabay.com/photo/2023/03/27/10/12/toyota-land-cruiser-7879693_1280.png",
+        image: require("../assets/car/36-(12).jpg"),
         images360: { prefix: "land-cruiser-", count: 36 },
         details: {
           acceleration: "0-100 km/h in 8.4s",
@@ -71,8 +70,7 @@ export const carData: Brand[] = [
       {
         id: "toyota-corolla",
         name: "Corolla",
-        image:
-          "https://cdn.pixabay.com/photo/2019/12/03/19/16/toyota-corolla-4677981_1280.png",
+        image: require("../assets/car/36-(12).jpg"),
         images360: { prefix: "corolla-", count: 35 },
         details: {
           acceleration: "0-100 km/h in 8.2s",
@@ -191,8 +189,7 @@ export const carData: Brand[] = [
       {
         id: "honda-civic",
         name: "Civic",
-        image:
-          "https://cdn.pixabay.com/photo/2022/05/22/05/38/car-7212988_1280.png",
+        image: require("../assets/car/36-(12).jpg"),
         images360: null,
         details: {
           acceleration: "0-100 km/h in 7.9s",
@@ -249,8 +246,7 @@ export const carData: Brand[] = [
       {
         id: "bmw-3-series",
         name: "3 Series",
-        image:
-          "https://cdn.pixabay.com/photo/2019/09/10/10/31/bmw-4465571_1280.png",
+        image: require("../assets/car/36-(12).jpg"),
         images360: null,
         details: {
           acceleration: "0-100 km/h in 5.8s",
