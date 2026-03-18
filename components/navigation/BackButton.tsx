@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function BackButton() {
   const router = useRouter();
@@ -14,14 +14,33 @@ export default function BackButton() {
   };
 
   return (
-    <TouchableOpacity style={styles.button} onPress={handleBack}>
-      <Ionicons name="arrow-back" size={24} color="black" />
-    </TouchableOpacity>
+    <View style={styles.wrapper}>
+      <TouchableOpacity style={styles.button} onPress={handleBack}>
+        <Ionicons name="chevron-back" size={20} color="#fff" />
+        <Text style={styles.text}>უკან დაბრუნება</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+    position: "absolute",
+    bottom: 20,
+    left: 16,
+  },
   button: {
-    padding: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#333",
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 24,
+    gap: 6,
+  },
+  text: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "500",
   },
 });

@@ -2,7 +2,6 @@ import Contact from "@/components/Contact";
 import BackButton from "@/components/navigation/BackButton";
 import { carData } from "@/data/dummyData";
 import { InquiryFormData, inquirySchema } from "@/schema/validation";
-
 import { configStore } from "@/stores/configStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocalSearchParams } from "expo-router";
@@ -53,7 +52,6 @@ export default function SummaryScreen() {
       });
 
       if (!response.ok) throw new Error("Failed to send");
-
       Alert.alert("Success");
     } catch {
       Alert.alert("Error");
@@ -63,127 +61,173 @@ export default function SummaryScreen() {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      {/* Car Image */}
-      {selectedCar?.image && (
-        <Image
-          source={selectedCar.image}
-          style={styles.image}
-          resizeMode="contain"
+    <View style={styles.wrapper}>
+      <ScrollView contentContainerStyle={styles.container}>
+        {/* Header */}
+        <Text style={styles.heading}>
+          შეიყვანეთ თქვენი მონაცემები და ჩვენ დაგიკავშირდებით
+        </Text>
+        <Text style={styles.subheading}>
+          ნაჩვენები ფასი მხოლოდ სახელმძღვანელოა. დეტალებს თქვენი{" "}
+          {selectedBrand?.brand}-ს დილერი დაგიდასტურებთ.
+        </Text>
+
+        {/* Car Image */}
+        {selectedCar?.image && (
+          <Image
+            source={
+              typeof selectedCar.image === "string"
+                ? { uri: selectedCar.image }
+                : selectedCar.image
+            }
+            style={styles.image}
+            resizeMode="contain"
+          />
+        )}
+
+        {/* Your Car Section */}
+        <Text style={styles.sectionLabel}>
+          თქვენი {selectedBrand?.brand}
+        </Text>
+
+        <View style={styles.configRow}>
+          {/* Engine Info */}
+          {selectedEngine && (
+            <View style={styles.engineCard}>
+              <Text style={styles.specLabel}>ძრავა</Text>
+              <Text style={styles.specValue}>{selectedEngine.name}</Text>
+              <Text style={styles.specLabel}>სიმძლავრე</Text>
+              <Text style={styles.specValue}>
+                {selectedEngine.horsepower} ცხ / {selectedEngine.horsepowerKw} kW
+              </Text>
+              <Text style={styles.specLabel}>გადაცემათა კოლოფი</Text>
+              <Text style={styles.specValue}>{selectedEngine.transmission}</Text>
+              <Text style={styles.specLabel}>საშუალო წვა</Text>
+              <Text style={styles.specValue}>
+                {selectedEngine.fuelConsumption}
+              </Text>
+            </View>
+          )}
+
+          {/* Grade/Price Info */}
+          {selectedGrade && (
+            <View style={styles.gradeCard}>
+              <Text style={styles.gradeName}>{selectedGrade.name}</Text>
+              <Text style={styles.priceLabel}>სრული ღირებულება</Text>
+              <Text style={styles.price}>
+                {selectedGrade.fullPrice.toLocaleString()} ₾
+              </Text>
+              <Text style={styles.leaseLabel}>FLEX LEASE TEGETA თვეში</Text>
+              <Text style={styles.leasePrice}>
+                {selectedGrade.leaseFrom.toLocaleString()} ₾ - დან
+              </Text>
+            </View>
+          )}
+        </View>
+
+        {/* Contact Form */}
+        <Contact
+          control={control}
+          errors={errors}
+          onSubmit={handleSubmit(onSubmit)}
+          loading={loading}
         />
-      )}
-
-      {/* Car Name */}
-      <Text style={styles.carName}>
-        {selectedBrand?.brand} {selectedCar?.name}
-      </Text>
-
-      {/* Grade */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Selected Grade</Text>
-        <Text style={styles.value}>{selectedGrade?.name}</Text>
-        <Text style={styles.price}>
-          ${selectedGrade?.fullPrice?.toLocaleString()}
-        </Text>
-      </View>
-
-      {/* Engine */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Selected Engine</Text>
-        <Text style={styles.value}>{selectedEngine?.name}</Text>
-        <Text style={styles.subValue}>
-          {selectedEngine?.horsepower} hp · {selectedEngine?.transmission}
-        </Text>
-      </View>
-      <Contact
-        control={control}
-        errors={errors}
-        onSubmit={handleSubmit(onSubmit)}
-        loading={loading}
-      />
+      </ScrollView>
 
       <BackButton />
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  wrapper: {
     flex: 1,
+    backgroundColor: "#fff",
+  },
+  container: {
     padding: 20,
+    paddingTop: 50,
+    paddingBottom: 100,
+  },
+  heading: {
+    fontSize: 22,
+    fontWeight: "700",
+    color: "#1a1a1a",
+    marginBottom: 8,
+  },
+  subheading: {
+    fontSize: 14,
+    color: "#888",
+    lineHeight: 20,
+    marginBottom: 20,
   },
   image: {
     width: "100%",
-    height: 220,
+    height: 240,
+    marginBottom: 20,
+    borderRadius: 12,
   },
-  carName: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginTop: 12,
-    marginBottom: 8,
-  },
-  section: {
-    marginTop: 24,
-  },
-  sectionTitle: {
-    fontSize: 13,
+  sectionLabel: {
+    fontSize: 20,
     fontWeight: "600",
-    color: "#888",
-    marginBottom: 8,
-    textTransform: "uppercase",
-    letterSpacing: 0.5,
+    color: "#333",
+    marginBottom: 16,
   },
-  value: {
-    fontSize: 16,
-    fontWeight: "600",
+  configRow: {
+    flexDirection: "row",
+    gap: 12,
+    marginBottom: 24,
   },
-  subValue: {
+  engineCard: {
+    flex: 1,
+    backgroundColor: "#fff",
+    borderWidth: 1.5,
+    borderColor: "#e8e8e8",
+    borderRadius: 12,
+    padding: 14,
+  },
+  gradeCard: {
+    flex: 1,
+    backgroundColor: "#fff",
+    borderWidth: 1.5,
+    borderColor: "#e8e8e8",
+    borderRadius: 12,
+    padding: 14,
+  },
+  specLabel: {
+    fontSize: 11,
+    color: "#999",
+    marginTop: 6,
+  },
+  specValue: {
     fontSize: 14,
-    color: "#666",
-    marginTop: 2,
+    fontWeight: "600",
+    color: "#1a1a1a",
+  },
+  gradeName: {
+    fontSize: 32,
+    fontWeight: "800",
+    color: "#1a1a1a",
+    marginBottom: 8,
+  },
+  priceLabel: {
+    fontSize: 11,
+    color: "#999",
   },
   price: {
     fontSize: 20,
     fontWeight: "700",
-    marginTop: 4,
+    color: "#1a1a1a",
+    marginBottom: 6,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 10,
-    padding: 14,
-    marginBottom: 12,
-    fontSize: 15,
-    backgroundColor: "#fafafa",
-  },
-  inputError: {
-    borderColor: "red",
-  },
-  textarea: {
-    height: 100,
-    textAlignVertical: "top",
-  },
-  error: {
-    color: "red",
-    fontSize: 12,
-    marginTop: -8,
-    marginBottom: 8,
-    marginLeft: 4,
-  },
-  button: {
-    backgroundColor: "#000",
-    padding: 16,
-    borderRadius: 12,
-    alignItems: "center",
-    marginTop: 24,
-    marginBottom: 40,
-  },
-  buttonDisabled: {
-    opacity: 0.5,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
+  leaseLabel: {
+    fontSize: 10,
     fontWeight: "600",
+    color: "#00BCD4",
+  },
+  leasePrice: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#00BCD4",
   },
 });
